@@ -1,0 +1,47 @@
+
+
+
+First sign configure your infrastructure using terraform 
+Before you begin, you need to set your environment using the code 
+
+Aws  eks —region us-east-1 update-kubeconfig —name darey-cluster
+
+
+Deploy pods into your infrastructure using the yaml file. We will deploy the pod in one of our name spaces using;
+
+Kubectl apply -f Nginx-pod.yaml -n tope
+First query name space using kubectl get pods -n tope
+To create names space kubectl create ns tope 
+
+If someone deployed a yaml file and you want to see a copy of the file 
+Kubectl get pods Nginx-pod -n tope -o yaml
+
+The get the metadata of the pod that is running, 
+Kubectl get pods Nginx-pod -n tope -o wide 
+Kubectl describe pods Nginx-pod -n tope 
+Kubectl log Nginx-pod -n tope 
+
+Describe gives you information about the pod itself and some events that has occurred in the pod. While logs gives you the event that has happened in the container. 
+To keep monitoring the log, 
+
+Kubectl log Nginx-pod -n tope —follow or Kubectl log Nginx-pod -n tope -follow 
+
+To enter the container, 
+Kubectl exec -it Nginx-pod -n tope bash 
+
+SERVICES
+A service is like a load balancer for out pods. Because pods are ephemeral and internal ip changes often, the service helps us to connect back to the new ip of the pod. It always know which ip is active. It does this by the help of a selector.
+
+To deploy a service 
+Kubectl apply -f Nginx-service.yaml -n tope
+Kubectl get service Nginx-pod -n tope 
+
+To access the pod from the browser, we need to do port forwarding
+Kubectl port-forward svc/nginx-service 8080:8v
+
+
+aws eks --region us-east-1 update-kubeconfig --name darey-cluster
+kubectl create ns tope
+kubectl delete ns tope
+kubectl get ns
+kubectl delete pod nginx-pod -n tope
