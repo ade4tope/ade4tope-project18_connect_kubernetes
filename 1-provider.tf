@@ -43,7 +43,7 @@ resource "aws_dynamodb_table" "global" {
 # terraform {
 #   backend "s3" {
 #     bucket         = "topesan-dev-terraform-buckett"
-#     key            = "global/dev-terraform.tfstate"
+#     key            = "global/terraform.tfstate"
 #     region         = "us-east-1"
 #     dynamodb_table = "terraform-locks"
 #     encrypt        = true
